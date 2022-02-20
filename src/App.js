@@ -3,19 +3,21 @@
  */
 
 import React, {Component} from 'react';
-
-import {Button,message} from 'antd';
-import './App.css';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import Login from "./pages/login/login";
+import Admin from "./pages/admin/admin";
 
 class App extends Component {
-  handleClick = ()=>{
-    message.success('Success!')
-  }
+  
+  
   render() {
     return (
-      <div>
-        <Button type="primary" onClick = {this.handleClick}>测试antd</Button>
-      </div>
+      <BrowserRouter>
+        <Switch>
+          <Route path='/login' component={Login}></Route>
+          <Route path='/admin' component={Admin}></Route>
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
