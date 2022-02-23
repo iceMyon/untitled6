@@ -1,25 +1,35 @@
 import React, {Component} from 'react';
-import {Form, Icon, Input, Button} from 'antd';
-
+import {Form, Icon, Input, Button,message} from 'antd';
+import memoryUtils from "../../utils/memoryUtils";
+import storageUtils from "../../utils/storageUtils";
+import {Redirect} from "react-router-dom";
 import './login.less'
-import logo from './images/logo.png'
+import logo from '../../assets/images/logo.png'
 import {reqLogin} from "../../api";
 
 // const Item = Form.Item //不能写在import之前
 
 class Login extends Component {
-  handleSubmit = e => {
-    e.preventDefault();
+  handleSubmit = event => {
+    event.preventDefault();
     //对所有的表单字段进行校验
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields(async (err, values) => {
       if (!err) {
-        const {username,password} = values
-        reqLogin(username,password).then(response=>{
-          console.log('成功了',response.data)
-        }).catch(error=>{
-          console.log('失败了',error)
-        })
-        console.log('提交ajax请求: ', values);
+        const {username, password} = values
+        const response = await reqLogin(username, password)
+        const result = response.data //{status:0,data:user} {status:1,msg}
+        if(result.status===0){ //登陆成功
+          //提示登陆成功
+          message.success('登陆成功')
+          //跳转到后台管理界面
+          const user = result.data
+          memoryUtils.user = user
+          storageUtils.saveUser(user) //保存到localstroage
+          this.props.history.replace('/')
+        }else{ //登陆失败
+          //提示登陆失败
+          message.error(result.msg)
+        }
       } else {
         console.log('校验失败')
       }
@@ -29,10 +39,16 @@ class Login extends Component {
   /*
   对密码进行自定义验证
    */
-
+  
   
   render() {
-    const { getFieldDecorator } = this.props.form;
+    //如果用户已经登陆，自动跳转到管理界面
+    const user = memoryUtils.user
+    if(user && user._id){
+      return <Redirect to='/'/>
+    }
+    
+    const {getFieldDecorator} = this.props.form;
     return (
       <div className="login">
         <header className="login-header">
@@ -47,12 +63,12 @@ class Login extends Component {
                 //声明式验证：直接使用别人定义好的验证规则进行验证
                 rules: [
                   
-                  {required: true, whiteSpace:true,message: '用户必须输入用户名!'},
-                  {min:4,message:'用户名至少4位'},
-                  {max:12,message: '用户名最多12位'},
-                  {pattern:/^[a-zA-Z0-9_]+$/,message: '用户名必须是英文、数字、下划线'}
+                  {required: true, whiteSpace: true, message: '用户必须输入用户名!'},
+                  {min: 4, message: '用户名至少4位'},
+                  {max: 12, message: '用户名最多12位'},
+                  {pattern: /^[a-zA-Z0-9_]+$/, message: '用户名必须是英文、数字、下划线'}
                 ],
-                initialValue:'admin'
+                initialValue: 'admin'
               })(
                 <Input
                   prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>}
@@ -63,14 +79,14 @@ class Login extends Component {
             <Form.Item>
               {getFieldDecorator('password', {
                 rules: [
-                  {required: true, whiteSpace:true,message: '用户必须输入用户名!'},
-                  {min:4,message:'用户名至少4位'},
-                  {max:12,message: '用户名最多12位'},
-                  {pattern:/^[a-zA-Z0-9_]+$/,message: '用户名必须是英文、数字、下划线'}
+                  {required: true, whiteSpace: true, message: '用户必须输入用户名!'},
+                  {min: 4, message: '用户名至少4位'},
+                  {max: 12, message: '用户名最多12位'},
+                  {pattern: /^[a-zA-Z0-9_]+$/, message: '用户名必须是英文、数字、下划线'}
                 ],
               })(
                 <Input
-                  prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                  prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>}
                   type="password"
                   placeholder="Password"
                 />,
