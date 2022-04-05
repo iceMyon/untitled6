@@ -7,7 +7,7 @@ import './index.less'
 
 const {SubMenu} = Menu;
 
-class Index extends Component {
+class LeftNav extends Component {
   
   //根据menu的数据数组生成对应的标签数据
   getMenuNodes = (menuList) => {
@@ -68,7 +68,7 @@ class Index extends Component {
       <div className="left-nav">
         <Link to='/' className="left-nav-header">
           <img src={logo} alt=""/>
-          <h1>硅谷后台</h1>
+          <h1>冰冰后台</h1>
         </Link>
         <Menu
           mode="inline"
@@ -131,4 +131,4 @@ class Index extends Component {
 //包装非路由组件，返回一个新的组件
 //新的组件向非路由组件传递3个属性：history/location/match
 
-export default withRouter(Index);
+export default withRouter(LeftNav);

@@ -1,0 +1,84 @@
+{
+  "status": 0,
+  "result": {
+    "location": {
+      "country": "中国",
+      "province": "北京市",
+      "city": "北京市",
+      "name": "北京",
+      "id": "110100"
+    },
+    "now": {
+      "text": "晴",
+      "temp": 0,
+      "feels_like": -3,
+      "rh": 34,
+      "wind_class": "2级",
+      "wind_dir": "东北风",
+      "uptime": "20220223100500"
+    },
+    "forecasts": [
+      {
+        "text_day": "晴",
+        "text_night": "晴",
+        "high": 6,
+        "low": -6,
+        "wc_day": "<3级",
+        "wd_day": "西南风",
+        "wc_night": "<3级",
+        "wd_night": "西南风",
+        "date": "2022-02-23",
+        "week": "星期三"
+      },
+      {
+        "text_day": "晴",
+        "text_night": "晴",
+        "high": 9,
+        "low": -5,
+        "wc_day": "<3级",
+        "wd_day": "西南风",
+        "wc_night": "<3级",
+        "wd_night": "西南风",
+        "date": "2022-02-24",
+        "week": "星期四"
+      },
+      {
+        "text_day": "晴",
+        "text_night": "多云",
+        "high": 11,
+        "low": -1,
+        "wc_day": "<3级",
+        "wd_day": "南风",
+        "wc_night": "3~4级",
+        "wd_night": "西北风",
+        "date": "2022-02-25",
+        "week": "星期五"
+      },
+      {
+        "text_day": "晴",
+        "text_night": "晴",
+        "high": 10,
+        "low": -4,
+        "wc_day": "3~4级",
+        "wd_day": "北风",
+        "wc_night": "<3级",
+        "wd_night": "西风",
+        "date": "2022-02-26",
+        "week": "星期六"
+      },
+      {
+        "text_day": "晴",
+        "text_night": "多云",
+        "high": 11,
+        "low": -2,
+        "wc_day": "<3级",
+        "wd_day": "南风",
+        "wc_night": "<3级",
+        "wd_night": "北风",
+        "date": "2022-02-27",
+        "week": "星期日"
+      }
+    ]
+  },
+  "message": "success"
+}
